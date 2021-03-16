@@ -1,13 +1,13 @@
 // dependencies
-const { error } = require("console");
 const express = require("express");
-const { readFile, writeFile } = require("fs");
 const path = require("path");
-
+const { error } = require("console");
+const { readFile, writeFile } = require("fs");
 
 const app = express();
-app.use(express.static('public'));
 const PORT = process.env.PORT || 3000;
+
+app.use(express.static('public'));
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
