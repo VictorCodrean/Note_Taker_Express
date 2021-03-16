@@ -5,6 +5,7 @@ const { readFile, writeFile } = require("fs");
 
 //  routes we import
 const htmlSourceRoute = require("./routes/htmlSourceRoute");
+const apiSourceRoute = require("./routes/apiSourceRoute");
 
 // express server
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.static('public'));
 
 // use route files we imported
 app.use(htmlSourceRoute);
+app.use(apiSourceRoute);
 
 // app.get("/api/notes", (req, res) => {
 //     readFile("./db/db.json", "utf8", (err, data) => {
@@ -49,4 +51,4 @@ app.use(htmlSourceRoute);
 //     })
 // })
 
-app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
+app.listen(PORT, () => console.log(`App listening on PORT: ${PORT}`));
