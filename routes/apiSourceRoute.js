@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const { readFile, writeFile } = require("fs");
-// const nanoid = require("nanoid");
+// const nanoid = require("nanoid");  ask a TA how nanoid works...
 const shortId = require('shortid');
 
 // define router
@@ -13,7 +13,7 @@ const router = express.Router();
 let dataBase = require("../db/db.json");
 
 router.get("/api/notes", (req, res) => {
-    console.log(dataBase);
+    // console.log(dataBase);
     res.json(dataBase);
 
     // readFile("./db/db.json", "utf8", (err, data) => {
@@ -24,7 +24,7 @@ router.get("/api/notes", (req, res) => {
 });
 
 router.post("/api/notes", (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     // req.body.id = nanoid();
 
     var addNote = {
@@ -38,24 +38,27 @@ router.post("/api/notes", (req, res) => {
         console.log("note added");
         res.json(dataBase);
     });
-    readFile("./db/db.json", "utf8", (err, data) => {
-        console.log(data);
-    })
-
-
-
     // readFile("./db/db.json", "utf8", (err, data) => {
-    //     if (err) throw err;
-    //     const notesArr = JSON.parse(data)
-    //     notesArr.push(req.body);
-
-    //     const noteArrReady = JSON.stringify(notesArr);
-    //     writeFile("./db/db.json", noteArrReady, "utf8", () => {
-    //         res.send(noteArrReady)
-    //     })
-    //     console.log(notesArr);
-
+    //     console.log(data);
     // })
 });
+
+router.delete("/api/notes/:id", (req, res) => {
+    let allNotes = dataBase;
+    let notesUpdated = allNotes.filter(item => item.id != req.params.id);
+    dataBase = notesUpdated;
+    fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify(notesUpdated), err => {
+        if (err) throw err;
+        console.log("Note deleted");
+        res.json(dataBase)
+    })
+    // index = dataBase.map(function (item) {
+    //     return item.Id
+    // }).indexOf(req.params.id);
+
+    // dataBase.splice(index, 1);
+    // console.log(dataBase);
+    // res.json(dataBase);
+})
 
 module.exports = router;
