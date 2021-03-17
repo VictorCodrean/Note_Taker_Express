@@ -10,11 +10,12 @@ const shortId = require('shortid');
 const router = express.Router();
 
 // database in a json file
-const dataBase = require("../db/db.json");
+let dataBase = require("../db/db.json");
 
 router.get("/api/notes", (req, res) => {
-    res.json(dataBase);
     console.log(dataBase);
+    res.json(dataBase);
+
     // readFile("./db/db.json", "utf8", (err, data) => {
     //     if (err) throw err
     //     console.log(data);
@@ -40,6 +41,9 @@ router.post("/api/notes", (req, res) => {
     readFile("./db/db.json", "utf8", (err, data) => {
         console.log(data);
     })
+
+
+
     // readFile("./db/db.json", "utf8", (err, data) => {
     //     if (err) throw err;
     //     const notesArr = JSON.parse(data)
